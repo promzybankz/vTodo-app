@@ -20,7 +20,7 @@
                     <div class="hellodiv ml-5">
                         <p>Hello</p>
                         <p class="namehello">{{ name }}</p>
-                        <p class="datehello"></p>
+                        <p class="datehello">{{ new Date() | moment("dddd, MMMM Do YYYY") }}</p>
                     </div>
                 </b-col>
                 <b-col md="3">
@@ -57,8 +57,12 @@ import { mapState } from "vuex"
             }
         },
         created(){
-            let now = new Date()
-            
+           if(this.name.length == 0){
+               this.$router.push({
+                   name : "landing"
+               })
+           }
+
         },
         methods : {
             
