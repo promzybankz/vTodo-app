@@ -53,7 +53,7 @@
                 </b-col>
                 <b-col md="6" class="mt-5 p-3 text-center">
                     Powered by Codemos Dev Community <b-icon-code-slash variant="light" font-scale="2"></b-icon-code-slash>
-                    <p class="m-4">c 2020</p>
+                    <p class="m-2">c 2020</p>
                 </b-col>
                 <b-col md="3">
                     
@@ -72,7 +72,7 @@ import { mapState, mapActions } from "vuex"
             }
         },
         created(){
-            alert(this.localStorage.name)
+            //alert(this.localStorage.name)
             if(this.localStorage.name != ''){
                 this.setName(this.localStorage.name)
                 //this.$router.push({

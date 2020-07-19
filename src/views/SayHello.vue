@@ -20,7 +20,7 @@
                     <div class="hellodiv ml-5">
                         <p>Hello</p>
                         <p class="namehello">{{ name }}</p>
-                        <p class="datehello">Saturday, 18th July</p>
+                        <p class="datehello"></p>
                     </div>
                 </b-col>
                 <b-col md="3">
@@ -35,7 +35,6 @@
                 </b-col>
                 <b-col md="6" class="cola text-left">
                     <b-card well>
-                    jj
 
                     
                     </b-card>
@@ -56,6 +55,10 @@ import { mapState } from "vuex"
             return {
 
             }
+        },
+        created(){
+            let now = new Date()
+            
         },
         methods : {
             

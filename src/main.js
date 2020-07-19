@@ -7,7 +7,9 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue"
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 import reactiveStorage from "vue-reactive-storage"
+import moment from "moment"
 
+Vue.use(moment)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(reactiveStorage, {
