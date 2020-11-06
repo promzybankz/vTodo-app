@@ -19,10 +19,9 @@
 
             </b-col>
             <b-col md="6" class="cola text-left">
-                <div class="hellodiv ml-5">
-                    <p>Hello</p>
-                    <p class="namehello">{{ name }}</p>
-                    <p class="datehello">{{ new Date() | moment("dddd, MMMM Do YYYY") }}</p>
+                <div class="catediv ml-5">
+                    <b-icon class="cicon mt-4" :icon="$route.params.category == 'Personal' ? 'person' : $route.params.category == 'Family' ? 'people' : $route.params.category == 'Work' ? 'tools' : $route.params.category == 'Home' ? 'house' : ''" font-scale="0.7"></b-icon>
+                    <p class="ccat">{{ $route.params.category }}</p>
                 </div>
             </b-col>
             <b-col md="3">
@@ -43,29 +42,26 @@
                 <b-row class="ntask">
                     <b-col class="p-3">
                         <div class="ml-5 tflex">
-                            <div class="count pr-2">57</div>
-                            <div class="tasks">Created <br> Tasks</div>
+                            All
                         </div>
 
                     </b-col>
                     <b-col class="p-3 text-left">
                         <div class="ml-5 tflex">
-                            <div class="count pr-2">32</div>
-                            <div class="tasks">Completed <br>Tasks</div>
+                            Today
+                        </div>
+
+                    </b-col>
+                    <b-col class="p-3">
+                        <div class="ml-5 tflex">
+                            Tomorrow
                         </div>
 
                     </b-col>
                 </b-row>
 
                 <b-row>
-                    <b-col cols="5" class="text-center p-1 taskscat m-3" v-for="(cat, index) in category" :key="index">
-                        <div class="taskcatwrapper w-100 h-100 p-3" @click="goCat(cat)">
-                            <div class="ml-3 mt-4 tflex">
-                                <b-icon class="cicon mr-2" :icon="cat == 'Personal' ? 'person' : cat == 'Family' ? 'people' : cat == 'Work' ? 'tools' : cat == 'Home' ? 'house' : ''" font-scale="2"></b-icon>
-                                <div class="tasks pt-2">{{ cat }}</div>
-                            </div>
-                        </div>
-                    </b-col>
+
                 </b-row>
             </b-col>
             <b-col md="3">
@@ -131,9 +127,18 @@ export default {
     color: white
 }
 
-.hellodiv {
+.catediv {
+    display: flex;
     font-size: 3rem;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.cicon {
+    width: 20%;
+}
+
+.ccat {
+    width: 80%;
 }
 
 .namehello {

@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Landing from "../views/Landing.vue";
 //import Hello from "../views/hello.vue";
 import SayHello from '../views/SayHello.vue'
+import NewTask from '@/views/NewTask'
+import Category from '@/views/Category'
 Vue.use(VueRouter);
 
 const routes = [{
@@ -14,7 +16,20 @@ const routes = [{
         path: "/hello",
         name: 'hello',
         component: SayHello
+    },
+    {
+        path: "/addtask",
+        name: 'addtask',
+        component: NewTask
+    },
+    {
+        path: "/category/:category",
+        name: 'category',
+        component: Category,
+        props: true
     }
+
+
 
 ];
 
