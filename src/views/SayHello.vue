@@ -8,7 +8,7 @@
 
             </b-col>
             <b-col md="6" class="cola text-right p-3 cpoi">
-                <b-icon-filter-right variant="light" font-scale="3" @click="goCat('cat')"></b-icon-filter-right>
+                <b-icon-filter-right variant="light" font-scale="3"></b-icon-filter-right>
             </b-col>
             <b-col md="3">
 
@@ -43,14 +43,14 @@
                 <b-row class="ntask">
                     <b-col class="p-3">
                         <div class="ml-5 tflex">
-                            <div class="count pr-2">57</div>
+                            <div class="count pr-2">{{ taskcreated }}</div>
                             <div class="tasks">Created <br> Tasks</div>
                         </div>
 
                     </b-col>
                     <b-col class="p-3 text-left">
                         <div class="ml-5 tflex">
-                            <div class="count pr-2">32</div>
+                            <div class="count pr-2">{{ taskdone }}</div>
                             <div class="tasks">Completed <br>Tasks</div>
                         </div>
 
@@ -58,14 +58,21 @@
                 </b-row>
 
                 <b-row>
-                    <b-col cols="5" class="text-center p-1 taskscat m-3" v-for="(cat, index) in category" :key="index">
-                        <div class="taskcatwrapper w-100 h-100 p-3" @click="goCat(cat)">
-                            <div class="ml-3 mt-4 tflex">
-                                <b-icon class="cicon mr-2" :icon="cat == 'Personal' ? 'person' : cat == 'Family' ? 'people' : cat == 'Work' ? 'tools' : cat == 'Home' ? 'house' : ''" font-scale="2"></b-icon>
-                                <div class="tasks pt-2">{{ cat }}</div>
+
+                    <div class="dispflex">
+                        <div class="text-center p-1 taskscat m-2" v-for="(cat, index) in category" :key="index">
+                            <div class="taskcatwrapper w-100 h-100 p-3" @click="goCat(cat)">
+                                <div class="ml-3 mt-4 tflex">
+                                    <b-icon class="cicon mr-2" :icon= "cat == 'Personal' ? 'person' : cat == 'Family' ? 'people' : cat == 'Work' ? 'tools' : cat == 'Home' ? 'house' : cat == 'School' ? 'book' : ''" font-scale="2"></b-icon>
+                                    <div class="tasks pt-2">
+                                        {{ cat }}
+                                        <p>{{ localStorage.tasks.filter(x => x.categ == cat).length}} Task{{ localStorage.tasks.filter(x => x.categ == cat).length > 1 ? 's' : '' }}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </b-col>
+                    </div>
+                    
                 </b-row>
             </b-col>
             <b-col md="3">
@@ -77,14 +84,19 @@
 </template>
 
 <script>
+//import catDiv from '@/components/catDiv'
 import {
     mapState
 } from "vuex"
 
 export default {
+    components: {
+        //catDiv
+    },
     data() {
         return {
-
+            taskcreated : JSON.parse(localStorage.tasks).length,
+            taskdone : JSON.parse(localStorage.tasks).filter(x => x.done == 'Yes').length
         }
     },
     created() {
@@ -149,11 +161,11 @@ export default {
 
 .btrt {
     position: fixed;
-    bottom: 1px;
-    right: 1px;
+    bottom: 0px;
+    right: 0px;
     background-color: red;
-    width: 60px;
-    height: 40px;
+    width: 70px;
+    height: 50px;
     border-top-left-radius: 20px;
     cursor: pointer;
     z-index: 100;
@@ -179,11 +191,18 @@ export default {
 .ntask {
     background-color: rgba(105, 107, 105, 0.122);
 }
+.dispflex{
+    display : flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
 
 .taskscat {
+    width: 45%;
     height: 150px;
     cursor: pointer;
-
+    display: flex
 }
 
 .taskcatwrapper {
@@ -192,4 +211,5 @@ export default {
     background-color: rgb(13, 53, 70);
 
 }
+
 </style>

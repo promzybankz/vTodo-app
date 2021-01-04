@@ -8,7 +8,7 @@
 
             </b-col>
             <b-col md="6" class="cola text-right p-3 cpoi">
-                <b-icon-filter-right variant="light" font-scale="3" @click="goCat('cat')"></b-icon-filter-right>
+                <b-icon-filter-right variant="light" font-scale="3"></b-icon-filter-right>
             </b-col>
             <b-col md="3">
 
@@ -40,20 +40,20 @@
 
             <b-col md="6" class="cola text-left">
                 <b-row class="ntask">
-                    <b-col class="p-3">
-                        <div class="ml-5 tflex">
+                    <b-col class="p-3" @click="curdiv = 'all'">
+                        <div class="ml-3 tflex">
                             All
                         </div>
 
                     </b-col>
-                    <b-col class="p-3 text-left">
-                        <div class="ml-5 tflex">
+                    <b-col class="p-3 text-left" @click="curdiv = 'today'">
+                        <div class="ml-3 tflex">
                             Today
                         </div>
 
                     </b-col>
-                    <b-col class="p-3">
-                        <div class="ml-5 tflex">
+                    <b-col class="p-3" @click="curdiv = 'tomorrow'">
+                        <div class="ml-3 tflex">
                             Tomorrow
                         </div>
 
@@ -61,6 +61,30 @@
                 </b-row>
 
                 <b-row>
+                    <b-col>
+                        <div class="all" v-if="curdiv == 'all'">
+                            All Category goes here
+                            <div class="taskwrap mb-3" v-for="(cat, index) in curtasks" :key="index" :class="[ cat.done == 'Yes' ? 'donecat' : 'undonecat']">
+                                <div class="chkbox">
+                                    <b-form-checkbox :checked="cat.done == 'Yes'" :class="[ cat.done == 'Yes' ? 'donecat' : 'undonecat']"></b-form-checkbox>
+                                </div>
+                                <div class="taskdet">
+                                    <p><b-icon-puzzle-fill variant="info"></b-icon-puzzle-fill> {{ cat.task}}</p>
+                                    <p><b-icon-calendar-fill variant="info"></b-icon-calendar-fill> {{ cat.date | moment("dddd, MMMM Do YYYY")}}</p>
+                                    <p><b-icon-clock-fill variant="info"></b-icon-clock-fill> {{ `${cat.date + ' ' + cat.time}` | moment("h:mm a")}}</p>
+                                </div>
+                                 
+                            </div>
+                        </div>
+
+                        <div class="today" v-if="curdiv == 'today'">
+                            Today Tasks goes here
+                        </div>
+
+                        <div class="tomorrow" v-if="curdiv == 'tomorrow'">
+                            Tomorrow's tasks goes here
+                        </div>
+                    </b-col>
 
                 </b-row>
             </b-col>
@@ -80,7 +104,10 @@ import {
 export default {
     data() {
         return {
-
+            curcat : this.$route.params.category,
+            curdiv : "all",
+            tasks : localStorage.tasks,
+            curdate : new Date()
         }
     },
     created() {
@@ -112,7 +139,13 @@ export default {
         ...mapState({
             name: state => state.name,
             category: state => state.category
-        })
+        }),
+        curtasks(){
+            let cattask = this.localStorage.tasks
+            let retcat = cattask.filter(x => x.categ == this.curcat)
+            return retcat
+        }
+
     }
 
 }
@@ -183,6 +216,7 @@ export default {
 
 .ntask {
     background-color: rgba(105, 107, 105, 0.122);
+    cursor : pointer
 }
 
 .taskscat {
@@ -196,5 +230,18 @@ export default {
     border-radius: 20px 20px;
     background-color: rgb(13, 53, 70);
 
+}
+.taskwrap{
+    display: flex;
+}
+.chkbox {
+    width: 5%;
+}
+.taskdet {
+    width: 90%;
+    line-height: 0.5rem;
+}
+.donecat{
+    text-decoration-line: line-through;
 }
 </style>

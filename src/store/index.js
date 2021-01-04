@@ -4,7 +4,8 @@ import reactiveStorage from "vue-reactive-storage"
 
 Vue.use(reactiveStorage, {
     name: "",
-    category: ""
+    category: "",
+    tasks: ""
 })
 
 Vue.use(Vuex);
@@ -16,7 +17,8 @@ export default new Vuex.Store({
             "Personal",
             "Home",
             "Work",
-            "Family"
+            "Family",
+            "School"
         ]
     },
     mutations: {
